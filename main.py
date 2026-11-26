@@ -17,9 +17,10 @@ def main():
         raise ValueError("entry must be 1-200 characters, got %d" % len(text))
     if "\n" in text or "\r" in text:
         raise ValueError("entry must be a single line")
-    os.makedirs("/output", exist_ok=True)
+    out_dir = os.environ.get("OUTPUT_DIR", "/output")
+    os.makedirs(out_dir, exist_ok=True)
     # No trailing newline: the file is exactly the diagnosis line.
-    with open("/output/entry.txt", "w", encoding="utf-8", newline="") as f:
+    with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8", newline="") as f:
         f.write(text)
 
 
